@@ -5,7 +5,7 @@ import { Col } from 'react-bootstrap';
 
 const Noticia = ({imagen, diario, titulo, descripcion, url}) => {
   return (
-    <Col md={4} className=" mb-3">
+    <Col md={6} lg={4} className=" mb-3">
       <Card className='h-100'>
       <Card.Img variant="top" src={imagen} alt={titulo} />
         <h6 className='text-start ps-3'>{diario}</h6>

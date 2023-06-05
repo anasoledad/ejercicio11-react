@@ -10,23 +10,30 @@ import { useState, useEffect } from 'react';
 function App() {
   const [noticias, setNoticias] = useState([]);
   const [categoria, setCategoria] = useState('');
+  const [pais, setPais] = useState('');
 
   useEffect(() => {
     consultarAPI();
-  }, [categoria]);
+  }, [categoria, pais]);
 
   const consultarAPI = async () => {
 
-    let url = '';
+    let urlCategoria = '';
+    let urlPais = '';
 
     if (categoria === '') {
-      url = 'https://saurav.tech/NewsAPI/top-headlines/category/general/in.json';
+      urlCategoria = 'https://saurav.tech/NewsAPI/top-headlines/category/general/in.json';
     } else {
-      url = `https://saurav.tech/NewsAPI/top-headlines/category/${categoria}/in.json`;
+      urlCategoria = `https://saurav.tech/NewsAPI/top-headlines/category/${categoria}/${pais}.json`;
+    }
+    if (pais === '') {
+      urlPais = 'https://saurav.tech/NewsAPI/top-headlines/category/general/in.json';
+    } else {
+      urlPais = `https://saurav.tech/NewsAPI/top-headlines/country/${pais}/${categoria}.json`;
     }
 
     try {
-      const respuesta = await fetch(url);
+      const respuesta = await fetch(urlCategoria || urlPais);
       const datos = await respuesta.json();
       setNoticias(datos.articles);
     } catch (error) {
@@ -39,6 +46,9 @@ function App() {
   const handleCategoriaChange = (categoriaSeleccionada) => {
     setCategoria(categoriaSeleccionada);
   };
+  const handlePaisChange = (paisSeleccionado) => {
+    setPais(paisSeleccionado);
+  };
 
   return (
     <>
@@ -46,7 +56,7 @@ function App() {
       <Container className='text-center'>
         <Row className='d-flex justify-content-center'>
           <Col md={10} className='border border-2 p-0'>
-            <Formulario handleCategoriaChange={handleCategoriaChange}></Formulario>
+            <Formulario handleCategoriaChange={handleCategoriaChange} handlePaisChange={handlePaisChange}></Formulario>
             <ListaNoticias noticias={noticias}></ListaNoticias>
           </Col>
         </Row>
