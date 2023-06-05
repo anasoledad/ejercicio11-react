@@ -16,13 +16,22 @@ function App() {
   }, [categoria]);
 
   const consultarAPI = async () => {
-    
+
+    let url = '';
+
+    if (categoria === '') {
+      url = 'https://saurav.tech/NewsAPI/top-headlines/category/general/in.json';
+    } else {
+      url = `https://saurav.tech/NewsAPI/top-headlines/category/${categoria}/in.json`;
+    }
+
     try {
-      const respuesta = await fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${categoria}/in.json`);
+      const respuesta = await fetch(url);
       const datos = await respuesta.json();
       setNoticias(datos.articles);
     } catch (error) {
       console.log(error);
+
     }
   };
   
