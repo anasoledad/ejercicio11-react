@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { Col } from 'react-bootstrap';
 
 
-const Noticia = ({imagen, diario, titulo, descripcion}) => {
+const Noticia = ({imagen, diario, titulo, descripcion, url}) => {
   return (
     <Col md={4} className=" mb-3">
       <Card className='h-100'>
@@ -17,7 +17,7 @@ const Noticia = ({imagen, diario, titulo, descripcion}) => {
           
         </Card.Body>
         <Card.Footer>
-          <Button variant="primary">Ver noticia completa</Button>
+          <Button href={url} variant="primary">Ver noticia completa</Button>
           </Card.Footer>
       </Card>
     </Col>
